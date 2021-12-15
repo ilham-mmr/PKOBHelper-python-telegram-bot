@@ -1,0 +1,1 @@
+worker: python pkob_bot.py
