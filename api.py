@@ -1,5 +1,5 @@
 import requests
-URL = 'http://127.0.0.1:8000/api/'
+URL = 'https://pkob268954.herokuapp.com/api/'
 
 
 def get_victim_info(ic, phone):
