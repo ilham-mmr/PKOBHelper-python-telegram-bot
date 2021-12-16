@@ -80,26 +80,26 @@ def about_callback(update: Update, context: CallbackContext):
             ABOUT_GENERAL_MSG.format(update.effective_user.first_name), reply_markup=ABOUT_KEYBOARD)
 
 
-updater = Updater(TOKEN)
+if __name__ == '__main__':
+    updater = Updater(TOKEN)
+    updater.dispatcher.add_handler(CommandHandler('start', start))
+    updater.dispatcher.add_handler(
+        CallbackQueryHandler(victim_callback, pattern=r"victim"))
+    updater.dispatcher.add_handler(
+        CallbackQueryHandler(website_callback, pattern=r"website"))
+    updater.dispatcher.add_handler(
+        CallbackQueryHandler(help_callback, pattern=r"help"))
+    updater.dispatcher.add_handler(
+        CallbackQueryHandler(about_callback, pattern=r"about_"))
+    updater.dispatcher.add_handler(MessageHandler(
+        Filters.regex(VICTIM_INFO_REGEX), get_victim))
+    updater.dispatcher.add_handler(MessageHandler(
+        Filters.text & ~Filters.command, echo))
 
-updater.dispatcher.add_handler(CommandHandler('start', start))
-updater.dispatcher.add_handler(
-    CallbackQueryHandler(victim_callback, pattern=r"victim"))
-updater.dispatcher.add_handler(
-    CallbackQueryHandler(website_callback, pattern=r"website"))
-updater.dispatcher.add_handler(
-    CallbackQueryHandler(help_callback, pattern=r"help"))
-updater.dispatcher.add_handler(
-    CallbackQueryHandler(about_callback, pattern=r"about_"))
-updater.dispatcher.add_handler(MessageHandler(
-    Filters.regex(VICTIM_INFO_REGEX), get_victim))
-updater.dispatcher.add_handler(MessageHandler(
-    Filters.text & ~Filters.command, echo))
 
+    updater.start_webhook(listen="0.0.0.0",
+                            port=int(PORT),
+                            url_path=TOKEN, webhook_url="https://pkob268954bot.herokuapp.com/" + TOKEN)
 
-updater.start_webhook(listen="0.0.0.0",
-                          port=int(PORT),
-                          url_path=TOKEN, webhook_url="https://pkob268954bot.herokuapp.com/" + TOKEN)
-
-updater.idle()
+    updater.idle()
 
