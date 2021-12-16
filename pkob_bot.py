@@ -100,6 +100,6 @@ updater.dispatcher.add_handler(MessageHandler(
 updater.start_webhook(listen="0.0.0.0",
                           port=int(PORT),
                           url_path=TOKEN)
-updater.bot.setWebhook('https://pkob268954bot.herokuapp.com//' + TOKEN)
+updater.bot.setWebhook('https://pkob268954bot.herokuapp.com/' + TOKEN)
 
 updater.idle()
