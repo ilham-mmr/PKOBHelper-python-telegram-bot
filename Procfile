@@ -1,1 +1,1 @@
-web: python pkob_bot.py
+web: python3 pkob_bot.py
