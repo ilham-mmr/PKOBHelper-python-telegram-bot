@@ -1,1 +1,1 @@
-worker: python pkob_bot.py
+web: python pkob_bot.py

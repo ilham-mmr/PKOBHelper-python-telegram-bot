@@ -7,6 +7,7 @@ import api
 from keyboard import START_KEYBOARD, ABOUT_KEYBOARD
 from strings import VICTIM_INFO_REGEX, START_MSG, VICTIM_INFO_MSG, START_ECHO_MSG, GET_VICTIM_MSG, GET_HELP_MSG, WEBISTE_MSG, ABOUT_DEVELOPER_MSG, ABOUT_BOT_MSG, ABOUT_GENERAL_MSG
 
+from config import PORT,TOKEN
 
 def start(update: Update, context: CallbackContext):
     update.message.reply_text(
@@ -79,7 +80,6 @@ def about_callback(update: Update, context: CallbackContext):
             ABOUT_GENERAL_MSG.format(update.effective_user.first_name), reply_markup=ABOUT_KEYBOARD)
 
 
-TOKEN = '5062714445:AAGQcjuLXd3F0iadpic6yE4bR0vYSuI-QUY'
 updater = Updater(TOKEN)
 
 updater.dispatcher.add_handler(CommandHandler('start', start))
@@ -97,5 +97,9 @@ updater.dispatcher.add_handler(MessageHandler(
     Filters.text & ~Filters.command, echo))
 
 
-updater.start_polling()
+updater.start_webhook(listen="0.0.0.0",
+                          port=int(PORT),
+                          url_path=TOKEN)
+updater.bot.setWebhook('https://pkob268954bot.herokuapp.com//' + TOKEN)
+
 updater.idle()
